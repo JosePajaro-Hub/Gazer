@@ -1,4 +1,5 @@
-window.saveDataAcrossSessions = true
+/*window.saveDataAcrossSessions = true;*/
+
 
 const LOOK_DELAY = 1000 // 1 second
 const LEFT_CUTOFF = window.innerWidth / 4
@@ -8,11 +9,17 @@ let startLookTime = Number.POSITIVE_INFINITY
 let lookDirection = null
 let imageElement = getNewImage()
 let nextImageElement = getNewImage(true)
+var data = localStorage
+
+
 
 webgazer
   .setGazeListener((data, timestamp) => {
+    window.onbeforeunload = function(){
+        webgazer.end()
+    }
     console.log(data, timestamp);
-    if (data == null || lookDirection === "STOP") return
+    if (data == null || lookDirection === "STOP") return 
 
     if (
       data.x < LEFT_CUTOFF &&
@@ -60,3 +67,4 @@ function getNewImage(next = false) {
   document.body.append(img)
   return img
 }
+
