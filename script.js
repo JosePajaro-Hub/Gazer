@@ -1,6 +1,3 @@
-/*window.saveDataAcrossSessions = true;*/
-
-
 const LOOK_DELAY = 1000 // 1 second
 const LEFT_CUTOFF = window.innerWidth / 4
 const RIGHT_CUTOFF = window.innerWidth - window.innerWidth / 4
@@ -10,13 +7,17 @@ let lookDirection = null
 let imageElement = getNewImage()
 let nextImageElement = getNewImage(true)
 var data = localStorage
-
+const video =   document.getElementById('webgazerVideoContainer')
+const canva = document.getElementById('webgazerVideoCanvas')
 
 
 webgazer
   .setGazeListener((data, timestamp) => {
+   
     window.onbeforeunload = function(){
-        webgazer.end()
+      window.saveDataAcrossSessions = true;
+      
+      webgazer.end()
     }
     console.log(data, timestamp);
     if (data == null || lookDirection === "STOP") return 
@@ -57,6 +58,7 @@ webgazer
         lookDirection = "RESET"
       }, 200)
     }
+   
   })
   .begin()
 
@@ -67,4 +69,6 @@ function getNewImage(next = false) {
   document.body.append(img)
   return img
 }
+
+
 
