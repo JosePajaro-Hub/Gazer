@@ -1,14 +1,23 @@
+
+
 const LOOK_DELAY = 1000 // 1 second
 const LEFT_CUTOFF = window.innerWidth / 4
 const RIGHT_CUTOFF = window.innerWidth - window.innerWidth / 4
-
+let count = 0;
 let startLookTime = Number.POSITIVE_INFINITY
 let lookDirection = null
 let imageElement = getNewImage()
 let nextImageElement = getNewImage(true)
 var data = localStorage
-const video =   document.getElementById('webgazerVideoContainer')
-const canva = document.getElementById('webgazerVideoCanvas')
+const video =   webgazer.getVideoElementCanvas();
+const canva = webgazer.getVideoElementCanvas();
+const snap = document.getElementById('snap');
+let db;
+var dbobj = openDatabase('GazeData', '1.0', 'Data from SearchGazer', 5*21024*1024);
+dbobj.transaction(function (tx) {
+  tx.executeSql('CREATE TABLE IF NOT EXISTS GlobalData(GazerGlobalData)')
+});
+
 
 
 webgazer
@@ -19,7 +28,10 @@ webgazer
       
       webgazer.end()
     }
-    console.log(data, timestamp);
+    localforage.getItem('webgazerGlobalData').then(function(value) {
+    
+    });
+
     if (data == null || lookDirection === "STOP") return 
 
     if (
