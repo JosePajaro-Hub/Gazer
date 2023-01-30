@@ -14,8 +14,12 @@
     "fs-extra": "^11.1.0",
     "jquery": "^3.6.3",
     "localforage": "^1.10.0",
+    "mongodb": "^4.13.0",
+    "mongoos": "^0.0.1-security",
+    "mongoose": "^6.9.0",
     "sweetalert": "^2.1.2",
     "webcam-easy": "^1.0.5",
+    "webcamjs": "^1.0.26",
     "webgazer": "^3.1.1"
   }
 }

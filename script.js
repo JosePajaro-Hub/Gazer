@@ -1,5 +1,4 @@
 
-
 const LOOK_DELAY = 1000 // 1 second
 const LEFT_CUTOFF = window.innerWidth / 4
 const RIGHT_CUTOFF = window.innerWidth - window.innerWidth / 4
@@ -9,28 +8,22 @@ let lookDirection = null
 let imageElement = getNewImage()
 let nextImageElement = getNewImage(true)
 var data = localStorage
-const video =   webgazer.getVideoElementCanvas();
-const canva = webgazer.getVideoElementCanvas();
-const snap = document.getElementById('snap');
-let db;
-var dbobj = openDatabase('GazeData', '1.0', 'Data from SearchGazer', 5*21024*1024);
-dbobj.transaction(function (tx) {
-  tx.executeSql('CREATE TABLE IF NOT EXISTS GlobalData(GazerGlobalData)')
-});
-
-
+const video = $('#webgazerVideoContainer')
+const canva = $('#plotting_canvas');
+var myCanvasElem = $(".canvas").get(0);
+const snapSound = document.getElementById('snap');
 
 webgazer
   .setGazeListener((data, timestamp) => {
    
     window.onbeforeunload = function(){
       window.saveDataAcrossSessions = true;
-      
       webgazer.end()
     }
+   
     localforage.getItem('webgazerGlobalData').then(function(value) {
-    
     });
+
 
     if (data == null || lookDirection === "STOP") return 
 
@@ -81,6 +74,33 @@ function getNewImage(next = false) {
   document.body.append(img)
   return img
 }
+
+function takePhoto() {
+  let c = document.getElementById("webgazerVideoCanvas");
+  let v = document.getElementById("webgazerVideoFeed");
+  c.getContext('2d').drawImage(v, 0, 0, c.width, c.height);
+  let image_data_url = c.toDataURL('image/jpeg');
+  downloadImage(image_data_url)
+
+}
+
+function downloadImage(url) {
+  fetch(url, {
+    mode : 'no-cors',
+  })
+    .then(response => response.blob())
+    .then(blob => {
+    let blobUrl = window.URL.createObjectURL(blob);
+    let a = document.createElement('a');
+    a.download = url.replace(/^.*[\\\/]/, '');
+    a.href = blobUrl;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    console.log(url);
+  })
+}
+
 
 
 
