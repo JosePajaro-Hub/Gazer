@@ -136,7 +136,6 @@ faceRegister()
 
 async function faceRegister() {
   let token = await login();
-  console.log(token)
   let body = {
     "firstName": "asd",
     "lastName": "qwe",
