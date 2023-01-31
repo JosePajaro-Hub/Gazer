@@ -8,10 +8,6 @@ let lookDirection = null
 let imageElement = getNewImage()
 let nextImageElement = getNewImage(true)
 var data = localStorage
-const video = $('#webgazerVideoContainer')
-const canva = $('#plotting_canvas');
-var myCanvasElem = $(".canvas").get(0);
-const snapSound = document.getElementById('snap');
 
 webgazer
   .setGazeListener((data, timestamp) => {
