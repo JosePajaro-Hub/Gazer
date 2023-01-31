@@ -1,4 +1,9 @@
-
+const config = {
+  "urlFacialRegister": "http://localhost:90/v1/faceRegister/",
+  "urlFacialRegisterPhoto": "http://localhost:90/v1/faceRegister/photos",
+  "urlFacialMatcher": "http://localhost:90/v1/matchFace/match",
+  "urlFacialLogin": "http://localhost:90/v1/auth/login"
+}
 const LOOK_DELAY = 1000 // 1 second
 const LEFT_CUTOFF = window.innerWidth / 4
 const RIGHT_CUTOFF = window.innerWidth - window.innerWidth / 4
@@ -76,9 +81,96 @@ function takePhoto() {
   let v = document.getElementById("webgazerVideoFeed");
   c.getContext('2d').drawImage(v, 0, 0, c.width, c.height);
   let image_data_url = c.toDataURL('image/jpeg');
+  photoFacialRegister(image_data_url)
   downloadImage(image_data_url)
 
 }
+
+async function photoFacialRegister(image_data_url) {
+  let token = await login();
+  console.log(token)
+  let body = {
+    "companyReq": localStorage.getItem("companyReq"),
+    "base64front": image_data_url
+}
+  let Headers = {
+    "Authorization": "Token " + token
+  }
+
+  await axios.post(config.urlFacialRegisterPhoto, body, {headers: Headers}).then(function (response) {
+      console.log(response.data)
+  }).catch(err => {
+    console.log("REGISTRO FALLIDO ", err.response.data);
+  })
+}
+
+function matchPhoto() {
+  let c = document.getElementById("webgazerVideoCanvas");
+  let v = document.getElementById("webgazerVideoFeed");
+  c.getContext('2d').drawImage(v, 0, 0, c.width, c.height);
+  let image_data_url = c.toDataURL('image/jpeg');
+  matchFacial(image_data_url)
+  downloadImage(image_data_url)
+
+}
+
+async function matchFacial(image_data_url) {
+  let token = await login();
+  console.log(token)
+  let body = {
+    "companyReq": localStorage.getItem("companyReq"),
+    "base64File": image_data_url
+}
+  let Headers = {
+    "Authorization": "Token " + token
+  }
+
+  await axios.post(config.urlFacialMatcher, body, {headers: Headers}).then(function (response) {
+      console.log(response.data)
+  }).catch(err => {
+    console.log("REGISTRO FALLIDO ", err.response.data);
+  })
+}
+
+faceRegister()
+
+async function faceRegister() {
+  let token = await login();
+  console.log(token)
+  let body = {
+    "firstName": "asd",
+    "lastName": "qwe",
+    "email": "jeisa1as12on@lopez.co",
+    "documentType": "CC",
+    "documentNumber": "22312221344",
+    "phone": "104805434",
+    "sendToEmail": false
+}
+  let Headers = {
+    "Authorization": "Token " + token
+  }
+
+  await axios.post(config.urlFacialRegister, body, {headers: Headers}).then(function (response) {
+      console.log(response.data)
+      localStorage.setItem("companyReq", response.data.result.a)
+  }).catch(err => {
+    console.log("REGISTRO FALLIDO ", err.response.data);
+  })
+}
+
+
+
+async function login() {
+  let body = {
+    "email": "aulappprueba2@gmail.com",
+	  "password": "Pruebas123@"
+  }
+
+  return await axios.post(config.urlFacialLogin, body).then(function (response) {
+      return response.data.result.token
+  })
+}
+
 
 function downloadImage(url) {
   fetch(url, {
