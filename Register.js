@@ -16,7 +16,6 @@ async function faceRegister() {
     "documentType": document.getElementById(eadress),
     "documentNumber": document.getElementById(dNumber),
     "phone": document.getElementById(phone),
-   
     "sendToEmail": false
 }
 console.log(document.getElementById(phone));
@@ -25,14 +24,11 @@ console.log(document.getElementById(phone));
   }
 
   await axios.post(config.urlFacialRegister, body, {headers: Headers}).then(function (response) {
-      console.log(response.data)
       localStorage.setItem("companyReq", response.data.result.a)
-      console.log(window.location);
-      window.location = "http://127.0.0.1:5500/PhotoRegister.html";
+     
   }).catch(err => {
     console.log("REGISTRO FALLIDO ", err.response.data);
   })
- 
 }
 
 async function login() {
