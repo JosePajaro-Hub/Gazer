@@ -92,7 +92,6 @@ function matchPhoto() {
   c.getContext('2d').drawImage(v, 0, 0, c.width, c.height);
   let image_data_url = c.toDataURL('image/jpeg');
   matchFacial(image_data_url)
-  downloadImage(image_data_url)
 
 }
 

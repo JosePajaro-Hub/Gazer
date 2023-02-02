@@ -1,4 +1,5 @@
-
+const form = document.getElementById('form');
+form.addEventListener('submit', faceRegister());
   const buttonReg = document.getElementById('buttonRegister');
   let href = document.location.href;
    
@@ -7,7 +8,7 @@ const config = {
     "urlFacialLogin": "http://localhost:90/v1/auth/login"
   }
 
-async function faceRegister() {
+async function faceRegister(event) {
   let token = await login();
   let body = {
     "firstName": document.getElementById(fname),
@@ -29,6 +30,7 @@ console.log(document.getElementById(phone));
   }).catch(err => {
     console.log("REGISTRO FALLIDO ", err.response.data);
   })
+  event.preventDefault();
 }
 
 async function login() {
