@@ -45,13 +45,13 @@ async function photoFacialRegister(image_data_url) {
   }
   
 
-function takePhoto() {
+async function takePhoto() {
     let c = document.getElementById("CanvasElement");
     let v = document.getElementById("VideoElement");
     c.getContext('2d').drawImage(v, 0, 0, c.width, c.height);
     let image_data_url = c.toDataURL('image/jpeg');
-    photoFacialRegister(image_data_url);
-    console.log(image_data_url);
+    await photoFacialRegister(image_data_url);
+    //console.log(image_data_url);
     window.location = '/calibration.html'
   
   }
