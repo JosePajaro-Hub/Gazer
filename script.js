@@ -82,27 +82,9 @@ function takePhoto() {
   c.getContext('2d').drawImage(v, 0, 0, c.width, c.height);
   let image_data_url = c.toDataURL('image/jpeg');
   photoFacialRegister(image_data_url)
-  downloadImage(image_data_url)
 
 }
 
-async function photoFacialRegister(image_data_url) {
-  let token = await login();
-  console.log(token)
-  let body = {
-    "companyReq": localStorage.getItem("companyReq"),
-    "base64front": image_data_url
-}
-  let Headers = {
-    "Authorization": "Token " + token
-  }
-
-  await axios.post(config.urlFacialRegisterPhoto, body, {headers: Headers}).then(function (response) {
-      console.log(response.data)
-  }).catch(err => {
-    console.log("REGISTRO FALLIDO ", err.response.data);
-  })
-}
 
 function matchPhoto() {
   let c = document.getElementById("webgazerVideoCanvas");
@@ -132,30 +114,7 @@ async function matchFacial(image_data_url) {
   })
 }
 
-faceRegister()
 
-async function faceRegister() {
-  let token = await login();
-  let body = {
-    "firstName": "asd",
-    "lastName": "qwe",
-    "email": "jeisa1as12on@lopez.co",
-    "documentType": "CC",
-    "documentNumber": "22312221344",
-    "phone": "104805434",
-    "sendToEmail": false
-}
-  let Headers = {
-    "Authorization": "Token " + token
-  }
-
-  await axios.post(config.urlFacialRegister, body, {headers: Headers}).then(function (response) {
-      console.log(response.data)
-      localStorage.setItem("companyReq", response.data.result.a)
-  }).catch(err => {
-    console.log("REGISTRO FALLIDO ", err.response.data);
-  })
-}
 
 
 
@@ -167,24 +126,6 @@ async function login() {
 
   return await axios.post(config.urlFacialLogin, body).then(function (response) {
       return response.data.result.token
-  })
-}
-
-
-function downloadImage(url) {
-  fetch(url, {
-    mode : 'no-cors',
-  })
-    .then(response => response.blob())
-    .then(blob => {
-    let blobUrl = window.URL.createObjectURL(blob);
-    let a = document.createElement('a');
-    a.download = url.replace(/^.*[\\\/]/, '');
-    a.href = blobUrl;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    console.log(url);
   })
 }
 

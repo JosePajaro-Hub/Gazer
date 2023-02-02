@@ -2,7 +2,9 @@
 <html>
   <head>
     <title>New Member Registration</title>
+    <script src="./Register.js" type="text/javacsript"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.6/axios.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <style>
       html, body {
@@ -220,7 +222,16 @@
           </div>
           <div class="item">
             <label for="dType">Document Type<span>*</span></label>
-            <input id="dType" type="text"   name="dType" required/>
+            <select name="dType" id="dType">
+              <option value="CC" selected> CC</option>
+              <option value="TI">TI</option>
+              <option value="CE">CE</option>
+              <option value="NIT">NIT</option>
+              <option value="IDE">IDE</option>
+              <option value="RC">RC</option>
+              <option value="PS">PS</option>
+              <option value="CD">CD</option>
+            </select>
           </div>
           <div class="item">
             <label for="dNumber">Document Number<span>*</span></label>
@@ -268,7 +279,8 @@
         <input type="checkbox" name="checkbox1">
         <label>You consent to receive communications from us electronically. We will communicate with you by e-mail or phone. You agree that all agreements, notices, disclosures and other communications that we provide to you electronically satisfy any legal requirement that such communications be in writing.</label>
         <div class="btn-block">
-          <button type="submit" href="/">Register</button>
+          <button id="buttonRegister"  formaction="faceRegister()">Register</button>
+        </a>
         </div>
       </form>
     </div>

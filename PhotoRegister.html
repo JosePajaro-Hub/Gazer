@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="./PhotoRegister.js" defer></script>
     <title>New Face Registration</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.6/axios.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <style>
       html, body {
@@ -93,36 +95,49 @@
       }
       #VideoContainer {
         margin: 0px auto;
-        width: 500;
-        height: 375;
+        width: 500px;
+        height: 375px;
         border: 10px #333 solid;
+        display: block;
       }
       #VideoElement {
         width: 500px;
         height: 375px;
         background-color: #666;
+        display: block;
+        transform: scale(-1, 1);
+        position: absolute;
+      }
+
+      #CanvasElement{
+        display: block; 
+        position: absolute; 
+        transform: scale(-1, 1); 
+        width: 500px; 
+        height: 375px;
       }
       
     </style>
   </head>
   <body>
-    <div class="testbox">
-      <form action="/">
+    <div class="testbox" style="display: block;">
         <div class="banner">
           <h1>New Face Registration</h1>
         </div>
         <div id="VideoContainer">  
-            <video autoplay="true" id="VideoElement"></video>
+            <video autoplay="true" id="VideoElement" ></video>
+            <canvas id="CanvasElement" ></canvas>
         </div>
-       
+       <div>
+        
+       </div>
         </div>
         <h2>Terms and Conditions</h2>
         <input type="checkbox" name="checkbox1">
         <label>You consent to receive communications from us electronically. We will communicate with you by e-mail or phone. You agree that all agreements, notices, disclosures and other communications that we provide to you electronically satisfy any legal requirement that such communications be in writing.</label>
         <div class="btn-block">
-          <button type="submit" href="/">Register</button>
+          <button type="submit" href="/calibration" onclick="takePhoto()">Register</button>
         </div>
-      </form>
     </div>
   </body>
 </html>
