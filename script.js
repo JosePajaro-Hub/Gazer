@@ -2,7 +2,6 @@
 const LOOK_DELAY = 1000 // 1 second
 const LEFT_CUTOFF = window.innerWidth / 4
 const RIGHT_CUTOFF = window.innerWidth - window.innerWidth / 4
-let count = 0;
 let startLookTime = Number.POSITIVE_INFINITY
 let lookDirection = null
 let imageElement = getNewImage()
